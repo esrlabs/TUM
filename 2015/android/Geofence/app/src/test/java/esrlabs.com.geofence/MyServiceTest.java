@@ -22,6 +22,8 @@ import org.robolectric.shadows.ShadowLocationManager;
 @Config(constants = BuildConfig.class, emulateSdk = 17)
 public class MyServiceTest extends ServiceTestCase {
 
+    public final LocationManager locationManager = (LocationManager)
+            RuntimeEnvironment.application.getSystemService(Context.LOCATION_SERVICE);
     Location someLocation = location(CAN_PROVIDER, 12.0, 20.0);
 
     public MyServiceTest() {
@@ -36,19 +38,26 @@ public class MyServiceTest extends ServiceTestCase {
 
     @Test
     public void testLatestLocation() throws Exception {
-        LocationManager locationManager = (LocationManager)
-                RuntimeEnvironment.application.getSystemService(Context.LOCATION_SERVICE);
-        ShadowLocationManager shadowLocationManager = Shadows.shadowOf(locationManager);
-
-        MyService mainService = new MyService(locationManager);
-        mainService.onCreate();
-        shadowLocationManager.simulateLocation(location(CAN_PROVIDER,
-                someLocation.getLatitude(), someLocation.getLongitude()));
+        MyService mainService = setupMyService(locationManager);
+        simulateNewLocation(locationManager);
 
         assertTrue(areTheLocationsEqual(someLocation, mainService.latestLocation()));
     }
 
+    private void simulateNewLocation(LocationManager locationManager) {
+        ShadowLocationManager shadowLocationManager = Shadows.shadowOf(locationManager);
+        shadowLocationManager.simulateLocation(location(CAN_PROVIDER,
+                someLocation.getLatitude(), someLocation.getLongitude()));
+    }
+
+    private MyService setupMyService(LocationManager locationManager) {
+        MyService service = new MyService(locationManager);
+        service.onCreate();
+        return service;
+    }
+
     private boolean areTheLocationsEqual(Location first, Location second) {
+        // timestamp is different 
         if ( (first.getAccuracy() == second.getAccuracy()) &&
                 (first.getLatitude() == second.getLatitude()) &&
                 (first.getLongitude() == second.getLongitude()) &&
