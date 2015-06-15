@@ -1,4 +1,4 @@
-package com.esrlabs.headunitservicemock;
+package com.esrlabs.headunitservice;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

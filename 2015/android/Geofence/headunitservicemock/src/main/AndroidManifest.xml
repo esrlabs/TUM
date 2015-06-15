@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.esrlabs.headunitservicemock" >
+    package="com.esrlabs.headunitservice" >
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,9 @@
             android:name=".HeadUnitService"
             android:enabled="true"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="com.esrlabs.headunitinterface.HeadUnit" />
+            </intent-filter>
         </service>
     </application>
 
