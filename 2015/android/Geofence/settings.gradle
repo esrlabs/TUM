@@ -1,1 +1,1 @@
-include ':app', ':headunitinterface'
+include ':app', ':headunitinterface', ':headunitservicemock'
