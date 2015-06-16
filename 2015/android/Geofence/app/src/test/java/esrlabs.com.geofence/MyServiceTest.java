@@ -41,30 +41,18 @@ public class MyServiceTest extends ServiceTestCase {
         MyService mainService = setupMyService(locationManager);
         simulateNewLocation(locationManager);
 
-        assertTrue(areTheLocationsEqual(someLocation, mainService.latestLocation()));
+        assertTrue(someLocation.equals(mainService.latestLocation()));
     }
 
     private void simulateNewLocation(LocationManager locationManager) {
         ShadowLocationManager shadowLocationManager = Shadows.shadowOf(locationManager);
-        shadowLocationManager.simulateLocation(location(CAN_PROVIDER,
-                someLocation.getLatitude(), someLocation.getLongitude()));
+        shadowLocationManager.simulateLocation(someLocation);
     }
 
     private MyService setupMyService(LocationManager locationManager) {
         MyService service = new MyService(locationManager);
         service.onCreate();
         return service;
-    }
-
-    private boolean areTheLocationsEqual(Location first, Location second) {
-        // timestamp is different 
-        if ( (first.getAccuracy() == second.getAccuracy()) &&
-                (first.getLatitude() == second.getLatitude()) &&
-                (first.getLongitude() == second.getLongitude()) &&
-                (first.getAltitude() == second.getAltitude()) ) {
-            return true;
-        }
-        return false;
     }
 
     private Location location(String provider, double latitude, double longitude) {
