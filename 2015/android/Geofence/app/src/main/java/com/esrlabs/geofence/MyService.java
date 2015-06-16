@@ -1,4 +1,4 @@
-package esrlabs.com.geofence;
+package com.esrlabs.geofence;
 
 import android.app.Service;
 import android.content.Context;

@@ -1,11 +1,13 @@
-package esrlabs.com.geofence;
+package com.esrlabs.geofence;
 
-import static esrlabs.com.geofence.MyService.CAN_PROVIDER;
+import static com.esrlabs.geofence.MyService.CAN_PROVIDER;
 
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.test.ServiceTestCase;
+
+import com.esrlabs.geofence.MyService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +18,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLocationManager;
+
+import esrlabs.com.geofence.BuildConfig;
 
 
 @RunWith(RobolectricGradleTestRunner.class)
