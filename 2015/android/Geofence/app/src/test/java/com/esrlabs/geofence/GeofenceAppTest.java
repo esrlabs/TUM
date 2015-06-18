@@ -17,6 +17,8 @@ import android.test.ServiceTestCase;
 
 import com.esrlabs.headunitinterface.HeadUnit;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,71 +37,58 @@ import esrlabs.com.geofence.BuildConfig;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 17)
-public class GeofenceAppTest extends ServiceTestCase {
+public class GeofenceAppTest extends TestCase {
 
     public final LocationManager locationManager = (LocationManager)
             RuntimeEnvironment.application.getSystemService(Context.LOCATION_SERVICE);
     private GeofenceApp geofenceApp;
 
-
+    final AtomicBoolean notificationVisibility = new AtomicBoolean(false);
     private final Location someLocation = location(CAN_PROVIDER, 12.0, 20.0);
-
-
-
-    public GeofenceAppTest() {
-        super(GeofenceApp.class);
-    }
 
     @Before
     public void setUp() throws Exception {
-        geofenceApp = setupMyService(locationManager);
+        initHeadUnitServiceMock();
+        setupMyService();
     }
 
     @After
-    public void tearDown() throws Exception { }
+    public void tearDown() throws Exception {
+        geofenceApp.onDestroy();
+    }
 
     @Test
     public void testLatestLocation() throws Exception {
-        simulateNewLocation(locationManager, someLocation);
+        simulateNewLocation(someLocation);
         assertTrue(someLocation.equals(geofenceApp.latestLocation()));
-    }
-
-    private GeofenceApp setupMyService(LocationManager locationManager) {
-        GeofenceApp service = new GeofenceApp(locationManager);
-        service.onCreate();
-        return service;
-    }
-
-    private void simulateNewLocation(LocationManager locationManager, Location someLocation) {
-        ShadowLocationManager shadowLocationManager = shadowOf(locationManager);
-        shadowLocationManager.simulateLocation(someLocation);
     }
 
     @Test
     public void testThatPopupIsShownWhenTheCurrentLocationIsOutsideTheGeofence() throws Exception {
-        final AtomicBoolean notificationVisibility = new AtomicBoolean(false);
-
-        initHeadUnitServiceMock(notificationVisibility);
-        GeofenceApp mainService = setupMyService(locationManager);
-
 //        Location locationInsideTheGeofence = location(CAN_PROVIDER, 10, 10);
 //        simulateNewLocation(locationManager, locationInsideTheGeofence);
 //        assertTrue(locationInsideTheGeofence.equals(mainService.latestLocation()));
 //        assertFalse(notificationVisibility.get());
 
         Location locationOutsideTheGeofence = location(CAN_PROVIDER, 11, 11);
-        simulateNewLocation(locationManager, locationOutsideTheGeofence);
-        assertTrue(locationOutsideTheGeofence.equals(mainService.latestLocation()));
+        simulateNewLocation(locationOutsideTheGeofence);
+        assertTrue(locationOutsideTheGeofence.equals(geofenceApp.latestLocation()));
         assertTrue(notificationVisibility.get());
     }
 
-    private void initHeadUnitServiceMock(AtomicBoolean notificationVisibility) {
-        IBinder headUnitStub = getHeadUnitServiceBinder(notificationVisibility);
+    private void setupMyService() {
+        GeofenceApp service = new GeofenceApp(locationManager);
+        service.onCreate();
+        geofenceApp = service;
+    }
+
+    private void initHeadUnitServiceMock() {
+        IBinder headUnitStub = getHeadUnitServiceBinder();
         shadowOf(RuntimeEnvironment.application).setComponentNameAndServiceForBindService(
                 new ComponentName("com.esrlabs.headunitinterface", "HeadUnit"), headUnitStub);
     }
 
-    private IBinder getHeadUnitServiceBinder(final AtomicBoolean notificationVisibility) {
+    private IBinder getHeadUnitServiceBinder() {
         return new HeadUnit.Stub() {
                 @Override
                 public void showNotification(String text) throws RemoteException {
@@ -111,6 +100,11 @@ public class GeofenceAppTest extends ServiceTestCase {
                     notificationVisibility.set(false);
                 }
             };
+    }
+
+    private void simulateNewLocation(Location someLocation) {
+        ShadowLocationManager shadowLocationManager = shadowOf(locationManager);
+        shadowLocationManager.simulateLocation(someLocation);
     }
 
 
