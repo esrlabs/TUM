@@ -1,32 +1,26 @@
 package com.esrlabs.geofence;
 
 import static com.esrlabs.geofence.GeofenceApp.CAN_PROVIDER;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.test.ServiceTestCase;
+
+import junit.framework.TestCase;
 
 import com.esrlabs.headunitinterface.HeadUnit;
 
-import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLocationManager;
 
@@ -38,18 +32,18 @@ import esrlabs.com.geofence.BuildConfig;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 17)
 public class GeofenceAppTest extends TestCase {
-
-    public final LocationManager locationManager = (LocationManager)
+    private final LocationManager locationManager = (LocationManager)
             RuntimeEnvironment.application.getSystemService(Context.LOCATION_SERVICE);
-    private GeofenceApp geofenceApp;
-
-    final AtomicBoolean notificationVisibility = new AtomicBoolean(false);
+    private final ShadowLocationManager shadowLocationManager = shadowOf(locationManager);
     private final Location someLocation = location(CAN_PROVIDER, 12.0, 20.0);
+    private final AtomicBoolean notificationVisibility = new AtomicBoolean(false);
+
+    private GeofenceApp geofenceApp;
 
     @Before
     public void setUp() throws Exception {
         initHeadUnitServiceMock();
-        setupMyService();
+        setupGeofenceApp();
     }
 
     @After
@@ -70,25 +64,25 @@ public class GeofenceAppTest extends TestCase {
 //        assertTrue(locationInsideTheGeofence.equals(mainService.latestLocation()));
 //        assertFalse(notificationVisibility.get());
 
-        Location locationOutsideTheGeofence = location(CAN_PROVIDER, 11, 11);
+        Location locationOutsideTheGeofence = location(CAN_PROVIDER, 11, 11); // todo: put real vals
         simulateNewLocation(locationOutsideTheGeofence);
         assertTrue(locationOutsideTheGeofence.equals(geofenceApp.latestLocation()));
         assertTrue(notificationVisibility.get());
     }
 
-    private void setupMyService() {
+    private void setupGeofenceApp() {
         GeofenceApp service = new GeofenceApp(locationManager);
         service.onCreate();
         geofenceApp = service;
     }
 
     private void initHeadUnitServiceMock() {
-        IBinder headUnitStub = getHeadUnitServiceBinder();
+        IBinder headUnitStub = newTestHeadUnitServerBinder();
         shadowOf(RuntimeEnvironment.application).setComponentNameAndServiceForBindService(
                 new ComponentName("com.esrlabs.headunitinterface", "HeadUnit"), headUnitStub);
     }
 
-    private IBinder getHeadUnitServiceBinder() {
+    private IBinder newTestHeadUnitServerBinder() {
         return new HeadUnit.Stub() {
                 @Override
                 public void showNotification(String text) throws RemoteException {
@@ -103,7 +97,6 @@ public class GeofenceAppTest extends TestCase {
     }
 
     private void simulateNewLocation(Location someLocation) {
-        ShadowLocationManager shadowLocationManager = shadowOf(locationManager);
         shadowLocationManager.simulateLocation(someLocation);
     }
 
