@@ -1,0 +1,79 @@
+
+# GPS on CAN
+
+In this task you will need to receive Can-frames on the can-bus that contain the GPS location of the
+vehicle. The raw data has to be converted to arc-milliseconds
+
+    1°2'5" == (1*3600+ 2*60 + 5)*1000
+
+Beware that the system you are running your code on will not support floating point operations.
+Use only unsigned and signed integers!
+Still the precision of your calculations has to be +-100 milli-arc-seconds
+
+
+## Conversion to Arc-Degree
+
+inDegree hex = 180/(2^31-1) * (hex) [°]
+
+## GPS Datalayout in CAN Message
+
+		Byte7 ST_LAT_NAVI
+		Byte6 ST_LAT_NAVI
+		Byte5 ST_LAT_NAVI
+		Byte4 ST_LAT_NAVI
+		Byte3 ST_LONG_NAVI
+		Byte2 ST_LONG_NAVI
+		Byte1 ST_LONG_NAVI
+		Byte0 ST_LONG_NAVI
+
+## Byteorder
+
+Little Endian (Least Significant Byte is at lowest address)
+
+## Status Longitude Navigation
+
+		ST_LONG_NAVI
+
+### Possible Values
+
+		-180° ...  +180°
+
+### signal type
+
+32 Bit Signed Integer (Byte 0 ... Byte 3)
+
+### Invalid Data
+
+Invalid-Value: 80 00 00 00h
+Signal not available value: 7F FF FF FF
+
+## Status Latitude Navigation
+
+		ST_LAT_NAVI
+
+### Possible Values
+
+		-180° ...  +180°
+
+### signal type
+
+32 Bit Signed Integer (Byte 4 ... Byte 7)
+
+### Invalid Data
+
+Invalid-Value: 80 00 00 00h
+Signal not available value: 7F FF FF FF
+
+## Running the tests
+
+you will need a working ruby installation to execute the tests
+
+### Install the bake tool
+
+see https://esrlabs.com/gems/doc/bake-toolkit/
+
+
+### run the tests
+
+execute `rake run` from this directory
+
