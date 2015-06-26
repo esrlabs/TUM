@@ -12,7 +12,7 @@ GeofenceAppTest.shouldReceiveTheLatestLocation()
 
 ## Bind to a remote service to be able to display notifications
 
-Use the [AIDL](http://developer.android.com/guide/components/aidl.html) to allow interprocess communication between your app and another service which will allow you to display notifications. The AIDL you will use is *HeadUnit.aidl*. You are on the client side. You will need to bind to the service using a [ServiceConnection](http://developer.android.com/reference/android/content/ServiceConnection.html) object (like [here](http://developer.android.com/guide/components/aidl.html#Expose)).
+Use the [AIDL](http://developer.android.com/guide/components/aidl.html) to allow interprocess communication between your app and another service which will allow you to display notifications. The AIDL you will use is *HeadUnit.aidl*. You are on the client side. You will need to bind to the service using an intent and a [ServiceConnection](http://developer.android.com/reference/android/content/ServiceConnection.html) object (see [here](http://developer.android.com/guide/components/aidl.html#Expose)).
 
 ```java
 Intent headUnitServiceIntent = new Intent(HeadUnit.class.getName());
