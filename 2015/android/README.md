@@ -4,7 +4,22 @@ In this task you have to create an android application which will use a geofence
 
 ## Receive the current location 
 
-Use the [Android]
+Use the [android location manager](http://developer.android.com/reference/android/location/LocationManager.html) to request location updates. If the location is retrieved correctly, then the following test will pass.
 
-- The controller responsible for what is displayed on the headunit runs a custom android OS. Your task is to create an android application which will use a geofence and the vehicle’s current location data in order to inform the user that he or she has just driven outside of the free parking area. You will receive the data to build the geofence prior to the development. The current
-location data will come from the application developed by your fellow teammates, on the other controller of the system. In order to display a popup on the headunit you will have to implement an AIDL. To help the development process you will use a test framework which will give you fake location data and will test that you have displayed or hidden the popup accordingly. You will also have the possibility to check this in the android simulator by observing a notification in the task bar when the “current” location will be outside of the given geofence.
+```java
+shouldReceiveTheLatestLocation()
+```
+
+## Bind to a remote service to be able to display notifications
+
+Use the [AIDL](http://developer.android.com/guide/components/aidl.html) to allow interprocess communication between your app and another service which will allow you to display notifications. The AIDL you will use is **HeadUnit.aidl**. You are on the client side. You will need to bind to the service using a **ServiceConnection** object ([like here](http://developer.android.com/guide/components/aidl.html#Expose)).
+
+```java
+Intent headUnitServiceIntent = new Intent(HeadUnit.class.getName());
+headUnitServiceIntent.setPackage("com.esrlabs.headunitinterface");
+bindService(headUnitServiceIntent, serviceConnection_object, BIND_AUTO_CREATE);
+```
+
+## Implement a geofence object to tell if the current is inside a designated area or not
+
+
