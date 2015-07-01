@@ -76,8 +76,9 @@ Signal not available value: 7F FF FF FF and FF FF FF FF
 
 ### Invalid Data
 
-Invalid-Value: 80 00 00 00h
-Signal not available value: 7F FF FF FF
+Invalid-Value: 80 00 00 00
+
+Signal not available value: 7F FF FF FF and FF FF FF FF 
 
 ## Send the data over to the AC
 
