@@ -17,6 +17,9 @@ import com.esrlabs.headunitinterface.HeadUnit;
 
 import java.util.List;
 
+import static android.location.LocationManager.NETWORK_PROVIDER;
+import static com.esrlabs.geofence.Utils.location;
+
 /**
  * Steps:
  * - register to the location provider
@@ -33,5 +36,53 @@ public class GeofenceApp extends Service implements LocationListener {
     public static final String TAG = "GeofenceApp";
     public static final String CAN_PROVIDER = "CanLocationProvider";
 
+    private LocationManager locationManager;
+    private Geofence geofence;
 
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Log.d(TAG, "onCreate");
+
+        if (locationManager == null) {
+            locationManager = (LocationManager)
+                    this.getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        initLocationListener();
+        initHeadUnitService();
+
+        if (geofence == null) {
+            final int someRadiusInMeters = 25;
+            final Location someCenterForTheGeofence = location(NETWORK_PROVIDER, 48.118920, 11.601057);
+            geofence = new CircleGeofence(someCenterForTheGeofence, someRadiusInMeters);
+        }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
