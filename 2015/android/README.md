@@ -16,7 +16,7 @@ Use the [AIDL](http://developer.android.com/guide/components/aidl.html) to allow
 
 ```java
 Intent headUnitServiceIntent = new Intent(HeadUnit.class.getName());
-headUnitServiceIntent.setPackage("com.esrlabs.headunitinterface");
+headUnitServiceIntent.setPackage("com.esrlabs.headunitservice");
 bindService(headUnitServiceIntent, serviceConnection_object, BIND_AUTO_CREATE);
 ```
 
