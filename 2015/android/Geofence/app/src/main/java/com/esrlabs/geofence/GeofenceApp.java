@@ -34,7 +34,6 @@ import static com.esrlabs.geofence.Utils.location;
 public class GeofenceApp extends Service implements LocationListener {
 
     public static final String TAG = "GeofenceApp";
-    public static final String CAN_PROVIDER = "CanLocationProvider";
 
     private LocationManager locationManager;
     private Geofence geofence;
