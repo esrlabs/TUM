@@ -56,9 +56,9 @@ Little Endian (Least Significant Byte is at lowest address)
 
 ### Invalid Data
 
-Invalid-Value: 80 00 00 00h
+Invalid-Value: 80 00 00 00
 
-Signal not available value: 7F FF FF FF
+Signal not available value: 7F FF FF FF and FF FF FF FF 
 
 **Do not forget to check for these values**
 
