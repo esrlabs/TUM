@@ -24,7 +24,31 @@ bindService(headUnitServiceIntent, serviceConnection_object, BIND_AUTO_CREATE);
 
 The first step is to implement a circle geofence. You cannot use the google API because that is part of the play API, and it is not supported by our android controller. You have included in the test suite a test class for the circle geofence to help you.
 
-The second step is to display a popup if the current location is outside of a given geofence (alternatively to close if the location is inside). If this is correctly implemented than all the tests should be green (**Note** that unless you are going for the bonus you should disable the test in the *PolygonGeofenceTest* class).
+The second step is to display a popup if the current location is outside of a given geofence (alternatively to close if the location is inside). If this is correctly implemented than all the tests should be green (**Note** that unless you are going for the bonus you should disable the test in the *PolygonGeofenceTest* class with *@Ignore* in front of the *@Test*).
+
+For the circle geofence you should use this location as the center and radius of : 
+
+    (48.262596, 11.668720) and radius of 25 meters
+
+
+## Observations
+
+In order to ease testing dependancy injection has been used. That means to pass the objects our class will use via a constructor. In android, services are not constructed by the user, instead they are built internally. The needed things for the service to run are instantated during the *onCreate()* call. The constructor in the code is there just for testing purposes. For the functioning of the service you should do the following:
+
+```java
+if (locationManager == null) {
+  locationManager = (LocationManager)
+  this.getSystemService(Context.LOCATION_SERVICE);
+}
+```
+and
+```java
+if (geofence == null) {
+  geofence = myGeofence(...);
+}
+```
+
+
 
 ## **Bonus** Implement a polygon geofence instead 
 
@@ -37,5 +61,9 @@ Use the slope of a straight line in order to tell if the ray starting from the g
 ```java
 90 + (90 - Math.abs(angle))
 ```
+
+For the polygon geofence you should use the following locations as the polygon's cornerns:
+
+    (48.262739, 11.668393), (48.262674, 11.668956), (48.262100, 11.668419), (48.262324, 11.670174)
 
 

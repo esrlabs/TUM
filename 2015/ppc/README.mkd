@@ -6,14 +6,26 @@ vehicle. The raw data has to be converted to arc-milliseconds
 
     1°2'5" == (1*3600+ 2*60 + 5)*1000
 
-Beware that the system you are running your code on will not support floating point operations.
-Use only unsigned and signed integers!
+**Beware that the system you are running your code on will not support floating point operations.
+Use only unsigned and signed integers!**
 Still the precision of your calculations has to be +-100 milli-arc-seconds
+
+Dynamic allocation is not supported on the system.
+
+You will have to complete the *GpsConverter.cpp* (and .h).
 
 
 ## Conversion to Arc-Degree
 
 inDegree hex = 180/(2^31-1) * (hex) [°]
+
+#### HINT 1
+
+Try to use constants as much as possible, isntead of computing stuff on the go. 
+
+#### HINT 2
+
+In order to aviod losing decimals first multiply with a large factor and then divide to get the result in ms.
 
 ## GPS Datalayout in CAN Message
 
@@ -38,14 +50,17 @@ Little Endian (Least Significant Byte is at lowest address)
 
 		-180° ...  +180°
 
-### signal type
+### Signal type
 
 32 Bit Signed Integer (Byte 0 ... Byte 3)
 
 ### Invalid Data
 
 Invalid-Value: 80 00 00 00h
+
 Signal not available value: 7F FF FF FF
+
+**Do not forget to check for these values**
 
 ## Status Latitude Navigation
 
@@ -55,7 +70,7 @@ Signal not available value: 7F FF FF FF
 
 		-180° ...  +180°
 
-### signal type
+### Signal type
 
 32 Bit Signed Integer (Byte 4 ... Byte 7)
 
@@ -64,16 +79,18 @@ Signal not available value: 7F FF FF FF
 Invalid-Value: 80 00 00 00h
 Signal not available value: 7F FF FF FF
 
+## Send the data over to the AC
+
+Use the *IGpsACPusher*.
+
 ## Running the tests
 
 you will need a working ruby installation to execute the tests
-
-### Install the bake tool
-
-see https://esrlabs.com/gems/doc/bake-toolkit/
-
 
 ### run the tests
 
 execute `rake run` from this directory
 
+### Install the bake tool
+
+see https://esrlabs.com/gems/doc/bake-toolkit/

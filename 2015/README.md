@@ -7,3 +7,5 @@ You are part of a 4 member team. Your task is to enhance the usability of our ca
 location data will come from the application developed by your fellow teammates, on the other controller of the system. In order to display a popup on the headunit you will have to implement an AIDL. To help the development process you will use a test framework which will give you fake location data and will test that you have displayed or hidden the popup accordingly. You will also have the possibility to check this in the android simulator by observing a notification in the task bar when the “current” location will be outside of the given geofence.
 
 For both tasks you have 2 hours, hence your team will be split into two sub-teams in order to tackle these different controllers. A valid result will contain working solutions for both tasks. When everything is working you will see your solution running on the latest car-sharing DriveNow system in a BMW i3. Good luck!
+
+![idea](https://raw.githubusercontent.com/esrlabs/TUM/master/2015/idea.png)
