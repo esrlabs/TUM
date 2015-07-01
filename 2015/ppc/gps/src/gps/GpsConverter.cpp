@@ -28,6 +28,18 @@ void GpsConverter::frameReceived(const CANFrame& canFrame)
 {
 	const uint8* payload = canFrame.getPayload();
     // TOOD implement conversion to arc-msec and call IGpsACPusher
+
+	sint32 latInMs = 0; // here add your converted lat
+	sint32 longInMs = 0; // here add your converted long
+
+
+	if (latInMs != fLastLatInMs || longInMs != fLastLongInMs)
+	{
+		// value changed
+		fAcPusher.pushGPSCoordinates(latInMs, longInMs);
+		fLastLatInMs = latInMs;
+		fLastLongInMs = longInMs;
+	}
 }
 
 
