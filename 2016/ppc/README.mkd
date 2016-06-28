@@ -8,4 +8,5 @@ To be able to compile your solutions and execute the tests, you will need the fo
 
 ## Install the bake tool
 
-see https://esrlabs.com/gems/doc/bake-toolkit/
+see https://esrlabs.github.io/bake/
+
