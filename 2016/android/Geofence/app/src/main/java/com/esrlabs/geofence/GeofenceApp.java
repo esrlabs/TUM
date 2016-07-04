@@ -38,6 +38,7 @@ public class GeofenceApp extends Service implements LocationListener {
     private LocationManager locationManager;
     private Geofence geofence;
 
+    // TODO: create constructor
 
     @Override
     public void onCreate() {
@@ -60,6 +61,14 @@ public class GeofenceApp extends Service implements LocationListener {
         }
     }
 
+    private void initHeadUnitService() {
+        // TODO
+    }
+
+    private void initLocationListener() {
+        // TODO
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -67,7 +76,7 @@ public class GeofenceApp extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-
+        // TODO
     }
 
     @Override
@@ -83,5 +92,11 @@ public class GeofenceApp extends Service implements LocationListener {
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public Location latestLocation()
+    {
+        // TODO
+        return null;
     }
 }

@@ -14,6 +14,7 @@ public class CircleGeofence implements Geofence {
 
     @Override
     public boolean containsLocation(Location location) {
+        // TODO
         return false;
     }
 }
