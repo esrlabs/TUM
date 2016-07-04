@@ -25,11 +25,11 @@ You will have to complete the *GpsConverter.cpp* (and .h).
 
 ## Conversion between Arc-Degree and arc-milliseconds
 
-1°2'5" == (1*3600+ 2*60 + 5)*1000
+	1°2'5" == (1*3600+ 2*60 + 5)*1000
 
 ## Conversion of raw values to Arc-Degree
 
-value [degree] = 180/(2^31-1) * value[raw]
+	value [degree] = 180/(2^31-1) * value[raw]
 
 #### HINT 1
 
