@@ -12,9 +12,14 @@ public class CircleGeofence implements Geofence {
         this.radiusInMeters = radiusInMeters;
     }
 
+    /**
+     * Predicate checking the {@param location} against the defined {@link CircleGeofence}
+     * @param location: The location to check
+     * @return true if geofence contains the location
+     */
     @Override
     public boolean containsLocation(Location location) {
-        // TODO
+        // TODO: implement this function according to the docstring
         return false;
     }
 }

@@ -27,8 +27,7 @@ public class PolygonGeofence implements Geofence {
         //adding the first corner at the end so that we can count the edge between last and first corners too
         List<Location> corners = new ArrayList<Location>(polygonPoints);
         corners.add(polygonPoints.get(0));
-
+        // TODO: implement this function according to the docstring
         return false;
     }
-
 }
