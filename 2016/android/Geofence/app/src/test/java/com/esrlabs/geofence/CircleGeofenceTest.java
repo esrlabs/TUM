@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import esrlabs.com.geofence.BuildConfig;
-
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static com.esrlabs.geofence.Utils.location;
 

@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import esrlabs.com.geofence.BuildConfig;
-
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static com.esrlabs.geofence.CircleGeofenceTest.distanceLargerThanRadiusInDeg;
 import static com.esrlabs.geofence.Utils.location;
@@ -18,6 +16,7 @@ import static com.esrlabs.geofence.Utils.location;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 17)
 public class PolygonGeofenceTest extends TestCase {
+
     // Test polygon defined physically like:
     // 48.119033, 11.601664         48.119051, 11.601766
     // 48.117726, 11.602404         48.117758, 11.602543

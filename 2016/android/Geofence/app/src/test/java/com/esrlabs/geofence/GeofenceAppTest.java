@@ -22,8 +22,6 @@ import org.robolectric.shadows.ShadowLocationManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import esrlabs.com.geofence.BuildConfig;
-
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static com.esrlabs.geofence.CircleGeofenceTest.someCircleGeofence;
 import static com.esrlabs.geofence.Utils.location;
@@ -51,7 +49,7 @@ public class GeofenceAppTest extends TestCase {
     private void initHeadUnitServiceMock() {
         IBinder headUnitStub = newTestHeadUnitServerBinder();
         shadowOf(RuntimeEnvironment.application).setComponentNameAndServiceForBindService(
-                new ComponentName("com.esrlabs.headunitinterface", "HeadUnit"), headUnitStub);
+                new ComponentName("com.esrlabs.headunitservice", "HeadUnit"), headUnitStub);
     }
 
     private IBinder newTestHeadUnitServerBinder() {
@@ -93,11 +91,15 @@ public class GeofenceAppTest extends TestCase {
         assertTrue(locationInside.equals(geofenceApp.latestLocation()));
         assertFalse(notificationVisibility.get());
 
+        Thread.sleep(200);
+
         Location locationOutside = location(NETWORK_PROVIDER, someCircleGeofence.center.getLatitude() + CircleGeofenceTest.distanceLargerThanRadiusInDeg,
                 someCircleGeofence.center.getLongitude());
         simulateNewLocation(locationOutside);
         assertTrue(locationOutside.equals(geofenceApp.latestLocation()));
         assertTrue(notificationVisibility.get());
+
+        Thread.sleep(200);
 
         Location nextLocationInside = location(NETWORK_PROVIDER, someCircleGeofence.center.getLatitude() + CircleGeofenceTest.distanceSmallerThanRadiusInDeg,
                 someCircleGeofence.center.getLongitude());
