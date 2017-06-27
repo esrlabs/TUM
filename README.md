@@ -1,3 +1,12 @@
-# TUM Workshop
+# TUM Workshop 2016
 
-Collection of our excercises hold at the TUM (Technische Universität München) about automotive and android.
+You are part of a 4 member team. Your task is to enhance the usability of our car-sharing system, by alerting users when they have exited the free parking area. The system comprises of two different controllers: one which is in charge of the communication with the car buses and the other which is responsible for what gets displayed on the car headunit.
+
+- The controller in charge of the communication with the car buses will run C++ code. Your task is to create an application which will register itself to one of the CANs and retrieve the location data. Afterwards you have to process it in order to obtain a tuple (Lat, Long), which you will later have to send to the other controller of the system. A test framework will be provided to help you in the development of this task, which will give you fake CAN location related messages and check that the output tuple is correct. A solution is considered correct only when all tests are green.
+- The controller responsible for what is displayed on the headunit runs a custom android OS. Your task is to create an android application which will use a geofence and the vehicle’s current location data in order to inform the user that he or she has just driven outside of the free parking area. You will receive the data to build the geofence prior to the development. The current
+location data will come from the application developed by your fellow teammates, on the other controller of the system. In order to display a popup on the headunit you will have to implement an AIDL. To help the development process you will use a test framework which will give you fake location data and will test that you have displayed or hidden the popup accordingly. You will also have the possibility to check this in the android simulator by observing a notification in the task bar when the “current” location will be outside of the given geofence.
+- As a bonus you will be provided with an additional API to interact with the car (functions like: read the current speed or flash the lights). So in case you have excess time, be creative and implement you own functionality.
+
+For both tasks you have 2 hours, hence your team will be split into two sub-teams in order to tackle these different controllers. A valid result will contain working solutions for both tasks. When everything is working you will see your solution running on the latest car-sharing DriveNow system in a Mini Cooper. Good luck!
+
+![idea](https://raw.githubusercontent.com/esrlabs/TUM/master/2016/idea.png)
