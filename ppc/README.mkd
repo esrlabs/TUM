@@ -41,7 +41,7 @@ The payload is formated as the following format:
 If the task is too difficult, you can use this help and advice section.
 
 ### Run tests
-- Install the bake tool from  [http://esrlabs.github.io/bake/](http://esrlabs.github.io/bake/)
+- Install the bake tool from  [http://esrlabs.github.io/bake/](http://esrlabs.github.io/bake/) or use ruby gem: `gem install bake-toolkit`
 - execute `rake run` from this directory
 
 ### GPS on CAN

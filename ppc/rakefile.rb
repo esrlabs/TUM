@@ -6,7 +6,7 @@ end
 
 desc "run"
 task :run => :build do
-  sh "./gps/build_UnitTest/gpsTests.exe"
+  sh "./gps/build/UnitTest/gpsTests.exe"
 end
 
 desc "clean"
