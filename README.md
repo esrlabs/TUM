@@ -8,4 +8,4 @@ location data will come from the application developed by your fellow teammates,
 
 For both tasks you have 2 hours, hence your team will be split into two sub-teams in order to tackle these different controllers. A valid result will contain working solutions for both tasks. When everything is working you will see your solution running on the latest car-sharing DriveNow system in a Mini Cooper. Good luck!
 
-![idea](https://raw.githubusercontent.com/esrlabs/TUM/master/2016/idea.png)
+![idea](https://raw.githubusercontent.com/esrlabs/TUM/master/idea.png)
