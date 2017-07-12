@@ -50,7 +50,7 @@ public class GeofenceApp extends Service implements LocationListener {
         initLocationListener();
         initHeadUnitService();
         if (geofence == null) {
-            geofence = Geofences.getCircleGarching();
+            geofence = Geofences.getGeofence();
         }
     }
 
